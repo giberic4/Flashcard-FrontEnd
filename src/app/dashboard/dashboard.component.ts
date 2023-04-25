@@ -4,7 +4,7 @@ import { CardServiceService } from '../card-service.service';
 import {OnInit} from '@angular/core'
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, delay } from 'rxjs';
 import { Validators } from '@angular/forms';
 
 @Component({
@@ -56,6 +56,7 @@ updateCard(card : card){
 this.selected = card;
 this.cards = [defaultCard]
 this.finishedloading = false;
+delay(500); 
 this.service.getAllCards().subscribe((data:any)=> {
     this.cards = data;
     this.finishedloading = true;
