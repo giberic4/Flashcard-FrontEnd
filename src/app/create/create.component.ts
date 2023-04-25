@@ -35,7 +35,7 @@ export class CreateComponent {
         this.showSuccess = true;
         console.log(this.currentCard)
       }
-      else alert("error occured please retry")
+      else alert("error occured please retry later")
       
     }))
 
