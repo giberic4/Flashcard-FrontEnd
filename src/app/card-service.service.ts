@@ -10,7 +10,7 @@ export class CardServiceService {
 
   constructor(private http : HttpClient) { }
 
-  apiRoot : string = "http://localhost:5092/"
+  apiRoot : string = "https://carddocker.azurewebsites.net"
   
 
   public getAllCards(): Observable<Array<any>> {
