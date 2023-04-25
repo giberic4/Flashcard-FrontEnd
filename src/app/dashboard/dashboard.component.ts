@@ -1,4 +1,4 @@
-import { Component  } from '@angular/core';
+import { Component, ChangeDetectorRef  } from '@angular/core';
 import { card, defaultCard } from '../Models/card';
 import { CardServiceService } from '../card-service.service';
 import {OnInit} from '@angular/core'
@@ -14,7 +14,7 @@ import { Validators } from '@angular/forms';
 })
 export class DashboardComponent implements OnInit{
 
-constructor(private service : CardServiceService, private router:Router, private fb: FormBuilder){}
+constructor(private service : CardServiceService, private router:Router, private fb: FormBuilder, private cdr: ChangeDetectorRef ){}
  cards : card[] = [{id : 2, front : 'loading', back :'card data', state : false, show : true}, {id : 3, front : 'test', back : 'card', state : false, show : true}]
 
  updateSelected = false;
@@ -26,6 +26,7 @@ ngOnInit(): void {
   this.service.getAllCards().subscribe((data:any)=> {
     
     this.cards = data; 
+    this.cdr.detectChanges();
     this.finishedloading = true;
   
   }) }
@@ -56,9 +57,9 @@ updateCard(card : card){
 this.selected = card;
 this.cards = [defaultCard]
 this.finishedloading = false;
-delay(500); 
 this.service.getAllCards().subscribe((data:any)=> {
     this.cards = data;
+    this.cdr.detectChanges();
     this.finishedloading = true;
 })
 this.updateSelected = !this.updateSelected
@@ -83,6 +84,7 @@ processCardForm(e: Event) : void {
   this.finishedloading = false;
   this.service.getAllCards().subscribe((data:any)=> {
       this.cards = data;
+      this.cdr.detectChanges();
       this.finishedloading = true;
   })
   this.closeUpddateCard()
