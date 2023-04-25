@@ -71,6 +71,7 @@ closeUpddateCard(){
   this.selected = defaultCard;
   this.cdr.detectChanges();
   this.updateSelected = !this.updateSelected
+  this.router.navigateByUrl('')
 }
 
 processCardForm(e: Event) : void {
