@@ -19,8 +19,19 @@ constructor(private service : CardServiceService, private router:Router, private
 
  updateSelected = false;
  selected : card = defaultCard;
+ finishedloading = false;
 
-ngOnInit(): void {  this.service.getAllCards().subscribe((data:any)=> {this.cards = data; }) }
+ngOnInit(): void {  
+  
+  this.service.getAllCards().subscribe((data:any)=> {
+    
+    this.cards = data; 
+    this.finishedloading = true;
+  
+  }) }
+
+
+
 
 cardForm: FormGroup = this.fb.group({
   cardFront: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]),
@@ -43,7 +54,14 @@ card.show = true;
 
 updateCard(card : card){
 this.selected = card;
+this.cards = [defaultCard]
+this.finishedloading = false;
+this.service.getAllCards().subscribe((data:any)=> {
+    this.cards = data;
+    this.finishedloading = true;
+})
 this.updateSelected = !this.updateSelected
+
 
 }
 
@@ -60,7 +78,12 @@ processCardForm(e: Event) : void {
     back : this.cardForm.value['cardBack'],
   }
 
-  this.service.getAllCards().subscribe((data:any)=> {this.cards = data;})
+  this.cards = [defaultCard]
+  this.finishedloading = false;
+  this.service.getAllCards().subscribe((data:any)=> {
+      this.cards = data;
+      this.finishedloading = true;
+  })
   this.closeUpddateCard()
 
 }
