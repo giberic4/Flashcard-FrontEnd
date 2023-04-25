@@ -69,6 +69,7 @@ this.updateSelected = !this.updateSelected
 
 closeUpddateCard(){
   this.selected = defaultCard;
+  this.cdr.detectChanges();
   this.updateSelected = !this.updateSelected
 }
 
@@ -80,15 +81,13 @@ processCardForm(e: Event) : void {
     back : this.cardForm.value['cardBack'],
   }
   this.service.updateCard(cardToUpdate).subscribe();
-  console.log('card id' + cardToUpdate.id)
-  console.log('card front' + cardToUpdate.front)
-  console.log('card back' + cardToUpdate.back)
   this.cards = [defaultCard]
   this.finishedloading = false;
   this.service.getAllCards().subscribe((data:any)=> {
       this.cards = data;
       this.cdr.detectChanges();
       this.finishedloading = true;
+      this.cdr.detectChanges();
   })
   this.closeUpddateCard()
 
