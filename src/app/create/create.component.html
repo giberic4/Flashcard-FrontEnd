@@ -1,0 +1,32 @@
+<h1>Add a Card</h1>
+<div>
+    <form [formGroup]="cardForm" (ngSubmit)="processCardForm($event)">
+
+    
+      <label >Front: </label>
+      <input type="string" formControlName="cardFront" placeholder="Question" required class="form-control">
+    
+      <label >Back: </label>
+      <input type="string" formControlName="cardBack" placeholder="Answer" required class="form-control">
+    
+    
+    <button type="submit" [disabled]="cardForm.invalid"> Submit </button>
+    <p *ngIf="cardForm.invalid"> Minimum input = 10,  Maxinput = 200</p>
+    
+    </form>
+
+</div>
+
+
+<div *ngIf="showSuccess">
+    <h2 >That Worked !!!</h2>
+    <mat-card>
+        <mat-card-header>{{currentCard.front}}</mat-card-header>
+        {{currentCard.back}}
+
+    </mat-card>
+    
+    
+</div>
+
+

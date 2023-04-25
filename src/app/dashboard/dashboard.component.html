@@ -1,0 +1,57 @@
+
+<div class="grid-container" *ngIf="updateSelected">
+  <button (click)="closeUpddateCard()"> Return </button>
+
+  <form [formGroup]="cardForm" (ngSubmit)="processCardForm($event)">
+    
+        <mat-grid-tile-header>
+          <mat-card>
+            <span>Front : </span><mat-card-title>{{selected.front}}</mat-card-title>
+            <span>Back : </span><mat-card-content>{{selected.back}}</mat-card-content>
+          </mat-card>  
+        </mat-grid-tile-header>
+    
+    <mat-grid-tile-footer>
+      <label >Front</label>
+      <input type="string" formControlName="cardFront" placeholder="Question" required class="form-control">
+
+      <label >Back</label>
+      <input type="string" formControlName="cardBack" placeholder="Answer" required class="form-control">
+
+
+    <button type="submit" [disabled]="cardForm.invalid"> Submit </button>
+    <p *ngIf="cardForm.invalid"> Minimum input = 10,  Maxinput = 200</p>
+
+
+    </mat-grid-tile-footer>
+  </form>
+
+</div>
+
+<div class="grid-container" *ngIf="!updateSelected">
+  <h1 class="mat-h1">All Cards</h1>
+  <mat-grid-list cols="2" rowHeight="350px">
+    <mat-grid-tile *ngFor="let card of cards async" [colspan]="1" [rowspan]="1">
+      <mat-card *ngIf="!card.show"class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            {{card.front}}
+          </mat-card-title>
+        </mat-card-header>
+        
+        <mat-card-content class="dashboard-card-content">
+          <mat-card-actions>
+            <button mat-raised-button (click)="flip(card)">Flip</button>
+          </mat-card-actions>
+          <span *ngIf="card.state">{{card.back}}</span>
+          <div></div>
+        </mat-card-content>
+        <mat-grid-tile-footer>
+          <button mat-raised-button (click)="deleteCard(card)"> delete </button>
+          <button mat-raised-button (click)="updateCard(card)"> change </button>
+        </mat-grid-tile-footer>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
