@@ -60,7 +60,7 @@ processCardForm(e: Event) : void {
     back : this.cardForm.value['cardBack'],
   }
 
-  this.service.updateCard(cardToUpdate).subscribe()
+  this.service.getAllCards().subscribe((data:any)=> {this.cards = data;})
   this.closeUpddateCard()
 
 }
