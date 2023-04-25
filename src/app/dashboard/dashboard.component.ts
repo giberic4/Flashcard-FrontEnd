@@ -79,8 +79,10 @@ processCardForm(e: Event) : void {
     front : this.cardForm.value['cardFront'],
     back : this.cardForm.value['cardBack'],
   }
-  this.updateCard(cardToUpdate)
-
+  this.service.updateCard(cardToUpdate).subscribe();
+  console.log('card id' + cardToUpdate.id)
+  console.log('card front' + cardToUpdate.front)
+  console.log('card back' + cardToUpdate.back)
   this.cards = [defaultCard]
   this.finishedloading = false;
   this.service.getAllCards().subscribe((data:any)=> {
