@@ -79,6 +79,7 @@ processCardForm(e: Event) : void {
     front : this.cardForm.value['cardFront'],
     back : this.cardForm.value['cardBack'],
   }
+  this.updateCard(cardToUpdate)
 
   this.cards = [defaultCard]
   this.finishedloading = false;
