@@ -4,7 +4,6 @@ import { CardServiceService } from '../card-service.service';
 import {OnInit} from '@angular/core'
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { Observable, delay } from 'rxjs';
 import { Validators } from '@angular/forms';
 
 @Component({
@@ -14,24 +13,19 @@ import { Validators } from '@angular/forms';
 })
 export class DashboardComponent implements OnInit{
 
-constructor(private service : CardServiceService, private router:Router, private fb: FormBuilder, private cdr: ChangeDetectorRef ){}
+constructor(public service : CardServiceService, private router:Router, private fb: FormBuilder, private cdr: ChangeDetectorRef ){}
  cards : card[] = [{id : 2, front : 'loading', back :'card data', state : false, show : true}, {id : 3, front : 'test', back : 'card', state : false, show : true}]
 
  updateSelected = false;
  selected : card = defaultCard;
  finishedloading = false;
 
-ngOnInit(): void {  
+ngOnInit() {  
   
   this.service.getAllCards().subscribe((data:any)=> {
-    
     this.cards = data; 
-    this.cdr.detectChanges();
     this.finishedloading = true;
-  
   }) }
-
-
 
 
 cardForm: FormGroup = this.fb.group({
@@ -55,23 +49,13 @@ card.show = true;
 
 updateCard(card : card){
 this.selected = card;
-this.cards = [defaultCard]
 this.finishedloading = false;
-this.service.getAllCards().subscribe((data:any)=> {
-    this.cards = data;
-    this.cdr.detectChanges();
-    this.finishedloading = true;
-})
 this.updateSelected = !this.updateSelected
-
-
 }
 
 closeUpddateCard(){
   this.selected = defaultCard;
-  this.cdr.detectChanges();
   this.updateSelected = !this.updateSelected
-  this.router.navigateByUrl('')
 }
 
 processCardForm(e: Event) : void {
@@ -82,17 +66,13 @@ processCardForm(e: Event) : void {
     back : this.cardForm.value['cardBack'],
   }
   this.service.updateCard(cardToUpdate).subscribe();
-  this.cards = [defaultCard]
   this.finishedloading = false;
   this.service.getAllCards().subscribe((data:any)=> {
       this.cards = data;
-      this.cdr.detectChanges();
       this.finishedloading = true;
-      this.cdr.detectChanges();
   })
   this.closeUpddateCard()
 
 }
-
 
 }

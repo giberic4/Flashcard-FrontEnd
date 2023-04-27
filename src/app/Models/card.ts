@@ -1,5 +1,5 @@
 export interface card {
-id : number
+id? : number
 front : string
 back : string
 state? : boolean

@@ -24,19 +24,14 @@ export class CreateComponent {
   processCardForm(e: Event) : void {
     e.preventDefault();
     let cardToCreate : card = {
-      id : 0,
       front : this.cardForm.value['cardFront'],
       back : this.cardForm.value['cardBack'],
     }
   
     this.service.createCard(cardToCreate).subscribe((data => {
-      if (data != null) 
-      { this.currentCard = data;
-        this.showSuccess = true;
-        console.log(this.currentCard)
-      }
-      else alert("error occured please retry later")
-      
+        this.currentCard = data;
+        this.showSuccess = true;     
+
     }))
 
 
